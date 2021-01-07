@@ -162,6 +162,10 @@ Route::post('stripe', 'StripeController@store');
 
 Route::resource('admin', 'AdminController');
 
+Route::resource('projects', 'ProjectController');
+
+Route::post('/dropzone/store','ImageController@store')->name('dropzone.store');
+
 //Route::resource('assistance', 'AssistanceController');
 Route::post('/assistance/new', 'AssistanceController@store')
 ->name('assistance-program-new');
