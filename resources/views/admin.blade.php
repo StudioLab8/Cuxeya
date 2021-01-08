@@ -103,6 +103,7 @@
 						<li><a href="#">Expirados <span class="nav-tag red">0</span></a></li>
 					</ul>	
 				</li> -->
+				<li><a href="{{ route('projects.create') }}"><i class="sl sl-icon-plus"></i> Agregar Ayuda</a></li>
 				<li><a><i class="sl sl-icon-plus"></i> Beneficiario/Ayudador</a>
 					<ul>
 						<li><a href="{{ route('savinglives.index') }}">Salvando vidas un platillo de esperanza</a></li>
