@@ -18838,3 +18838,9 @@ border: 0px solid #000000;
 	.color1{
 		color: #000!important;
 	}
+	
+	@media (min-width:991px){
+		.header-widget{
+			margin-top: -40px;
+		}
+	}

@@ -9,8 +9,11 @@
 
 <!-- CSS
 ================================================== -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"></script>
 <link rel="stylesheet" href="css\style2.css">
 <link rel="stylesheet" href="css\main-color.css" id="colors">
+
 
 </head>
 
@@ -389,8 +392,8 @@
 
 		<!-- Map -->
 		<div id="map-container">
-		    <div id="map" data-map-scroll="true">
-		        <!-- map goes here -->
+		    <div id="mapa" >
+		        <!-- map goes here  data-map-scroll="true"-->
 		    </div>
 		</div>
 
@@ -400,8 +403,21 @@
 
 </div>
 <!-- Wrapper / End -->
+<style>
+	#mapa{position: absolute; top: 0; bottom: 0; left: 0; right: 0;}
+</style>
+<script>
+	var map = L.map('mapa').setView([19.601022, -99.047949], 16);
+	
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
 
+L.marker([19.601022, -99.047949]).addTo(map)
+  .bindPopup('Visitanos en nuestras oficinas.<br> Revolución 10101.')
+  .openPopup();
 
+</script>
 <!-- Scripts
 ================================================== -->
 <script type="text/javascript" src="scripts\jquery-3.4.1.min.js"></script>
@@ -416,6 +432,7 @@
 <script type="text/javascript" src="scripts\jquery-ui.min.js"></script>
 <script type="text/javascript" src="scripts\tooltips.min.js"></script>
 <script type="text/javascript" src="scripts\custom.js"></script>
+
 
 
 <!-- Leaflet // Docs: https://leafletjs.com/ -->
