@@ -16,17 +16,20 @@ class CreateBeneficiariesTable extends Migration
         Schema::create('beneficiaries', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('project_id')->unsigned();
-            $table->string('name');
-            $table->string('last_name');
-            $table->string('phone');
-            $table->string('email');
+            $table->bigInteger('user_id')->unsigned();
+            $table->string('type');
+            $table->string('phone')->nullable();
             $table->string('commentary');
             $table->boolean('attended');
-            $table->text('reply');
+            $table->text('status');
             $table->timestamps();
             $table->foreign('project_id')
                     ->references('id')
                     ->on('projects')
+                    ->onCascade('delete');
+            $table->foreign('user_id')
+                    ->references('id')
+                    ->on('users')
                     ->onCascade('delete');
         });
     }

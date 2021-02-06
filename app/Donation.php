@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Donation extends Model
 {
     protected $fillable = [
-        'concept', 'amount'
+        'project_id', 'concept', 'description', 'amount'
     ];
 
     public function project(){

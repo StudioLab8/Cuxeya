@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Gallery extends Model
 {
     protected $fillable = [
-        'image_name', 'order'
+        'project_id', 'image_name', 'order'
     ];
 
     public function project(){

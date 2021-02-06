@@ -142,9 +142,11 @@ class LoginController extends Controller
             $user = User::where('email', '=', $email)->first();
             if ($user)
             {
+                $url_site = env('APP_URL');
                 $data = [
                     'user' => $user->name,
-                    'url' => 'https://cuxeya.org/changePassword?token=' . $user->remember_token
+                    'url' => $url_site . '/changePassword?token=' . $user->remember_token,
+                    'url_base' => $url_site
                 ];
                 Mail::to($email)->send(new ChangePassword($data));
 

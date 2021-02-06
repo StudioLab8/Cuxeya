@@ -62,7 +62,7 @@
 							<ul>
 								<li><a href="/como-funciona">¿Cómo funciona?</a></li>
 								<li><a href="/iniciativa-cuxeya">Iniciativa Cuxeya.org</a></li>
-								<li><a href="/blog">Blog</a></li>
+								<li><a href="/noticias">Noticias</a></li>
 							</ul>
 						</li>
 						<li><a href="/contacto">Contacto</a></li>
@@ -239,8 +239,10 @@
 				
 				<strong class="headline-with-separator margin-top-15">Las publicaciones son gratuitas</strong>
 				<span class="margin-top-15">Partimos del principio de la buena fe</span>
-
-				<a href="#" class="button border margin-top-10">Agregar Ayuda</a>
+				
+				@if(isset(Auth::user()->email))
+					<a href="/projects/create" class="button border margin-top-10">Agregar Ayuda</a>
+				@endif
 			</h3>
 		</div>
 	</div>

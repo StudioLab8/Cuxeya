@@ -17,6 +17,7 @@ class CreateDonationsTable extends Migration
             $table->id();
             $table->bigInteger('project_id')->unsigned();
             $table->string('concept');
+            $table->string('description');
             $table->decimal('amount', 8, 2);
             $table->timestamps();
             $table->foreign('project_id')

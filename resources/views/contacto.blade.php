@@ -62,7 +62,7 @@
 							<ul>
 								<li><a href="/como-funciona">¿Cómo funciona?</a></li>
 								<li><a href="/iniciativa-cuxeya">Iniciativa Cuxeya.org</a></li>
-								<li><a href="/blog">Blog</a></li>
+								<li><a href="/noticias">Noticias</a></li>
 							</ul>
 						</li>
 						<li><a class="current" href="/contacto">Contacto</a></li>
@@ -159,7 +159,7 @@
 
 	<!-- Google Maps -->
 	<div id="singleListingMap-container">
-		<div id="singleListingMap" data-latitude="19.4283391" data-longitude="-99.1650153" data-map-icon="im im-icon-Map2"></div>
+		<div id="mapa" data-latitude="19.4283391" data-longitude="-99.1650153" data-map-icon="im im-icon-Map2"></div>
 		<a href="#" id="streetView">Street View</a>
 	</div>
 	<!-- Google Maps / End -->
@@ -346,6 +346,18 @@
 		
 </div>
 <!-- Style Switcher / End -->
-
+<style>
+	#mapa{position: absolute; top: 0; bottom: 0; left: 0; right: 0;}
+</style>
+<script>
+	var map = L.map('mapa').setView([19.601022, -99.047949], 16);
+	
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+L.marker([19.601022, -99.047949]).addTo(map)
+  .bindPopup('Oficinas Cuxeya')
+  .openPopup();
+</script>
 
 </body>
