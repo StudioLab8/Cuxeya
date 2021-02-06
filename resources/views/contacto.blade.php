@@ -312,11 +312,11 @@
 <script src="scripts\leaflet.min.js"></script>
 
 <!-- Leaflet Maps Scripts -->
-<script src="scripts\leaflet-markercluster.min.js"></script>
+{{-- <script src="scripts\leaflet-markercluster.min.js"></script> --}}
 <script src="scripts\leaflet-gesture-handling.min.js"></script>
 <script src="scripts\leaflet-listeo.js"></script>
 
-
+ְְְ
 <!-- Style Switcher
 ================================================== -->
 <script src="scripts\switcher.js"></script>
@@ -351,13 +351,23 @@
 	#mapa{position: absolute; top: 0; bottom: 0; left: 0; right: 0;}
 </style>
 <script>
+	var myIcon = L.icon({
+    iconUrl: '/marker-icon-2x.png',
+    iconSize: [68, 65],
+    iconAnchor: [22, 94],
+    popupAnchor: [-3, -76],
+    shadowUrl: '',
+    shadowSize: [68, 95],
+    shadowAnchor: [22, 94]
+});
+
 	var map = L.map('mapa').setView([19.601022, -99.047949], 16);
 	
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-L.marker([19.601022, -99.047949]).addTo(map)
+L.marker([19.601022, -99.047949], {icon: myIcon}).addTo(map)
   .bindPopup('Oficinas Cuxeya')
   .openPopup();
 
