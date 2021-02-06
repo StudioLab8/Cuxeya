@@ -62,7 +62,7 @@
 							<ul>
 								<li><a href="/como-funciona">¿Cómo funciona?</a></li>
 								<li><a href="/iniciativa-cuxeya">Iniciativa Cuxeya.org</a></li>
-								<li><a href="/blog">Blog</a></li>
+								<li><a href="/noticias">Noticias</a></li>
 							</ul>
 						</li>
 						<li><a class="current" href="/contacto">Contacto</a></li>

@@ -9,8 +9,9 @@
 
 <!-- CSS
 ================================================== -->
-<link rel="stylesheet" href="{{ asset('css/style.css') }}">
+<link rel="stylesheet" href="{{ asset('css/style_original.css') }}">
 <link rel="stylesheet" href="{{ asset('css/main-color.css') }}" id="colors">
+<link rel="stylesheet" href="{{ asset('css/richtext.min.css') }}">
 
 </head>
 
@@ -19,112 +20,16 @@
 <!-- Wrapper -->
 <div id="wrapper">
 
-<!-- Header Container
-================================================== -->
-<header id="header-container" class="fixed fullwidth dashboard">
-
-	<!-- Header -->
-	<div id="header" class="not-sticky">
-		<div class="container">
-			
-			<!-- Left Side Content -->
-			<div class="left-side">
-				
-				<!-- Logo -->
-				<div id="logo">
-					<a href="/admin"><img src="{{ asset('images\logo_cuxeya.png') }}" alt=""></a>
-					<a href="/admin" class="dashboard-logo"><img src="{{ asset('images\logo_cuxeya.png') }}" alt=""></a>
-				</div>
-
-				<!-- Mobile Navigation -->
-				<div class="mmenu-trigger">
-					<button class="hamburger hamburger--collapse" type="button">
-						<span class="hamburger-box">
-							<span class="hamburger-inner"></span>
-						</span>
-					</button>
-				</div>
-				
-			</div>
-			<!-- Left Side Content / End -->
-
-			<!-- Right Side Content / End -->
-			<div class="right-side">
-				<!-- Header Widget -->
-				<div class="header-widget">
-					
-					<!-- User Menu -->
-					<div class="user-menu">
-						<div class="user-name"><span><img src="{{ asset('images\avatar.png') }}" alt=""></span>Mi cuenta</div>
-						<ul>
-							<li><a href="/logout"><i class="sl sl-icon-power"></i> Salir</a></li>
-						</ul>
-					</div>
-				</div>
-				<!-- Header Widget / End -->
-			</div>
-			<!-- Right Side Content / End -->
-
-		</div>
-	</div>
-	<!-- Header / End -->
-
-</header>
-<div class="clearfix"></div>
-<!-- Header Container / End -->
-
+@include("admin.layouts.header-admin")
 
 <!-- Dashboard -->
 <div id="dashboard">
 
-	<!-- Navigation
-	================================================== -->
-
-	<!-- Responsive Navigation Trigger -->
-	<a href="#" class="dashboard-responsive-nav-trigger"><i class="fa fa-reorder"></i> Dashboard Navigation</a>
-	
-	<div class="dashboard-nav">
-		<div class="dashboard-nav-inner">
-
-		<ul data-submenu-title="Principal">
-				<li class="active"><a href="admin"><i class="sl sl-icon-settings"></i> Dashboard</a></li>
-				<!-- <li><a href="{{ route('users.index') }}"><i class="sl sl-icon-user"></i> Usuarios</a></li>
-				<li><a href="{{ route('estates.index') }}"><i class="sl sl-icon-star"></i> Estados</a></li>
-				<li><a href="/admin-cat"><i class="sl sl-icon-star"></i> Categorías</a></li>
-				<li><a href="/admin-blog"><i class="fa fa-calendar-check-o"></i> Blog <span class="nav-tag messages">2</span></a></li>
-				<li><a href="/admin-testimonios"><i class="fa fa-calendar-check-o"></i> Testimonios</a></li> -->
-			</ul>
-			
-			<ul data-submenu-title="Brazos de Ayuda">
-				<!-- <li><a><i class="sl sl-icon-layers"></i> Mis Brazos de Ayuda</a>
-					<ul>
-						<li><a href="#">Activos <span class="nav-tag green">0</span></a></li>
-						<li><a href="#">Pendientes <span class="nav-tag yellow">0</span></a></li>
-						<li><a href="#">Expirados <span class="nav-tag red">0</span></a></li>
-					</ul>	
-				</li> -->
-				<li><a href="{{ route('projects.create') }}"><i class="sl sl-icon-plus"></i> Agregar Ayuda</a></li>
-				<li><a><i class="sl sl-icon-plus"></i> Beneficiario/Ayudador</a>
-					<ul>
-						<li><a href="{{ route('savinglives.index') }}">Salvando vidas un platillo de esperanza</a></li>
-						<li><a href="{{ route('adoptgrandpa.index') }}">Adoptando abuelitos</a></li>
-						<li><a href="{{ route('assistance-program', ['program' => 'freedom-nets']) }}">Tejiendo redes de libertad</a></li>
-						<li><a href="{{ route('assistance-program', ['program' => 'underdogs']) }}">Underdog university</a></li>
-						<li><a href="{{ route('assistance-program', ['program' => 'ropa-bebe']) }}">Abriga un bebé</a></li>
-						<li><a href="{{ route('assistance-program', ['program' => 'laptops']) }}">Laptops con causa</a></li>
-					</ul>
-				</li>
-			</ul>	
-
-			<ul data-submenu-title="Cuenta">
-				<!-- <li><a href="#"><i class="sl sl-icon-user"></i> Mi perfil</a></li> -->
-				<li><a href="/inicio"><i class="sl sl-icon-power"></i> Salir</a></li>
-			</ul>
-
-		</div>
-	</div>
-	<!-- Navigation / End -->
-
+	@if(Auth::user()->type == 'ADMIN')	
+		@include("admin.layouts.menu-admin")
+	@else
+		@include("admin.layouts.menu")
+	@endif
 
 	<!-- Content
 	================================================== -->
@@ -134,13 +39,13 @@
 		<div id="titlebar">
 			<div class="row">
 				<div class="col-md-12">
-					<h2>Add Listing</h2>
+					<h2>Agregar nuevo proyecto</h2>
 					<!-- Breadcrumbs -->
 					<nav id="breadcrumbs">
 						<ul>
-							<li><a href="#">Home</a></li>
-							<li><a href="#">Dashboard</a></li>
-							<li>Add Listing</li>
+							<li><a href="#">Inicio</a></li>
+							<li><a href="#">Admin</a></li>
+							<li>Agregar proyecto</li>
 						</ul>
 					</nav>
 				</div>
@@ -152,47 +57,71 @@
 
 				<div id="add-listing">
 
+					<div id="response-validate"></div>
+
 					<!-- Section -->
 					<div class="add-listing-section">
 
 						<!-- Headline -->
 						<div class="add-listing-headline">
-							<h3><i class="sl sl-icon-doc"></i> Basic Informations</h3>
+							<h3><i class="sl sl-icon-doc"></i> Información basica</h3>
 						</div>
 
 						<!-- Title -->
 						<div class="row with-forms">
 							<div class="col-md-12">
-								<h5>Listing Title <i class="tip" data-tip-content="Name of your business"></i></h5>
-								<input class="search-field" type="text" value="">
+								<h5>Nombre del proyecto <i class="tip" data-tip-content="Nombre del proyecto"></i></h5>
+								<input id="project-name" class="search-field" type="text" value="">
 							</div>
 						</div>
 
 						<!-- Row -->
 						<div class="row with-forms">
 
-							<!-- Status -->
+							<!-- Tipo -->
 							<div class="col-md-6">
-								<h5>Category</h5>
-								<select class="chosen-select-no-single">
-									<option label="blank">Select Category</option>	
-									<option>Eat & Drink</option>
-									<option>Shops</option>
-									<option>Hotels</option>
-									<option>Restaurants</option>
-									<option>Fitness</option>
-									<option>Events</option>
+							<h5>Tipo de proyecto</h5>
+								<select id="project-type" class="chosen-select-no-single">
+									<option value="none" label="blank">Selecciona una tipo</option>	
+									<option value="foundation">Fundación</option>
+									<option value="independent">Negocio/Idenpendiente</option>
 								</select>
 							</div>
 
-							<!-- Type -->
+							<!-- Categoría -->
 							<div class="col-md-6">
-								<h5>Keywords <i class="tip" data-tip-content="Maximum of 15 keywords related with your business"></i></h5>
-								<input type="text" placeholder="Keywords should be separated by commas">
+								<h5>Categoría</h5>
+								<select id="category" class="chosen-select-no-single">
+									<option value="none" label="blank">Selecciona una categoría</option>	
+									<option value="adoption">Adopción</option>
+									<option value="advisory">Asesoría</option>
+									<option value="nutriment">Alimentos</option>
+									<option value="education">Educación</option>
+									<option value="objects">Objetos</option>
+									<option value="health">Salud</option>
+									<option value="hostels">Albergues</option>
+									<option value="volunteering">Voluntariado</option>
+								</select>
 							</div>
 
 						</div>
 						<!-- Row / End -->
+
+						<!-- Row -->
+						<div class="row with-forms">
+
+							<!-- Online ó presencial -->
+							<div class="col-md-6">
+							<h5>Online ó presencial</h5>
+								<select id='modality-project' class="chosen-select-no-single">
+									<option value='face-to-face' selected>Presencial</option>
+									<option value='on-line'>Online</option>
+								</select>
+							</div>
+
+						</div>
+						<!-- Row / End -->
+
 
 					</div>
 					<!-- Section / End -->
@@ -202,45 +131,63 @@
 
 						<!-- Headline -->
 						<div class="add-listing-headline">
-							<h3><i class="sl sl-icon-location"></i> Location</h3>
+							<h3><i class="sl sl-icon-location"></i> Modalidad</h3>
 						</div>
 
 						<div class="submit-section">
 
 							<!-- Row -->
-							<div class="row with-forms">
+							<div id='row-online-modality' class="row with-forms">
 
-								<!-- City -->
+								<!-- Link Zoom -->
 								<div class="col-md-6">
-									<h5>City</h5>
-									<select class="chosen-select-no-single">
-										<option label="blank">Select City</option>	
-										<option>New York</option>
-										<option>Los Angeles</option>
-										<option>Chicago</option>
-										<option>Houston</option>
-										<option>Phoenix</option>
-										<option>San Diego</option>
-										<option>Austin</option>
+									<h5>Link Zoom <i class="tip" data-tip-content="Comparte tu link de Zoom."></i></h5>
+									<input id="link-zoom" type="text" placeholder="URL">
+								</div>
+
+							</div>
+							<!-- Row / End -->
+
+							<!-- Row -->
+							<div id='row-inperson-modality' class="row with-forms">
+
+								<!-- País -->
+								<div class="col-md-6">
+									<h5>País</h5>
+									<select id="country" class="chosen-select-no-single">
+										<option value="none" label="blank">Selecciona un país</option>	
+										<option value="Mexico">México</option>
+										<option value="Estados Unidos">Estados Unidos</option>
+										<option value="Canada">Canada</option>
+										<option value="Alemania">Alemania</option>
+										<option value="Latam">Latam</option>
+										<option value="Brasil">Brasil</option>
+										<option value="Colombia">Colombia</option>
 									</select>
 								</div>
 
-								<!-- Address -->
+								<!-- Ciudad -->
 								<div class="col-md-6">
-									<h5>Address</h5>
-									<input type="text" placeholder="e.g. 964 School Street">
+									<h5>Ciudad</h5>
+									<input id="city" type="text" placeholder="Ciudad">
 								</div>
 
-								<!-- City -->
+								<!-- Dirección -->
 								<div class="col-md-6">
-									<h5>State</h5>
-									<input type="text">
+									<h5>Dirección</h5>
+									<input id="address" type="text" placeholder="Calle, Numero, Colonia">
 								</div>
 
-								<!-- Zip-Code -->
+								<!-- Estado -->
 								<div class="col-md-6">
-									<h5>Zip-Code</h5>
-									<input type="text">
+									<h5>Estado</h5>
+									<input id="state" type="text">
+								</div>
+
+								<!-- Códido postal -->
+								<div class="col-md-6">
+									<h5>Código postal</h5>
+									<input id="zip-code" type="text">
 								</div>
 
 							</div>
@@ -256,16 +203,32 @@
 
 						<!-- Headline -->
 						<div class="add-listing-headline">
-							<h3><i class="sl sl-icon-picture"></i> Gallery</h3>
+							<h3><i class="sl sl-icon-picture"></i> Galería <i class="tip" data-tip-content="Elige al mínimo 2 imagenes, de dimensiones óptimas de 1200 x 800 pixeles, que pese menos de 5MB"></i></h3>
 						</div>
 
 						<!-- Dropzone -->
 						<div class="submit-section">
-							<form action="{{ route('dropzone.store') }}" enctype="multipart/form-data" class="dropzone">
+							<form action="{{ route('dropzone.store') }}" enctype="multipart/form-data" class="dropzone" id="dropzone">
 								@csrf
+    							<div class="fallback">
+        							<input id="files" multiple="true" name="files[]" type="file">
+    							</div>
 							</form>
 						</div>
 
+						<!-- Row -->
+						<div class="row with-forms">
+
+							<!-- Phone -->
+							<div class="col-md-12">
+								<h5>Link de Youtube Video <span>(opcional)</span></h5>
+								<input id="youtube-link" type="text">
+							</div>
+
+						</div>
+						<!-- Row / End -->
+
+
 					</div>
 					<!-- Section / End -->
 
@@ -275,13 +238,13 @@
 
 						<!-- Headline -->
 						<div class="add-listing-headline">
-							<h3><i class="sl sl-icon-docs"></i> Details</h3>
+							<h3><i class="sl sl-icon-docs"></i> Detalles</h3>
 						</div>
 
-						<!-- Description -->
+						<!-- Descripción -->
 						<div class="form">
-							<h5>Description</h5>
-							<textarea class="WYSIWYG" name="summary" cols="40" rows="3" id="summary" spellcheck="true"></textarea>
+							<h5>Descripción del proyecto <i class="tip" data-tip-content="Escribe de qué trata tu proyecto, todo lo que es necesario para las personas que estás buscando."></i></h5>
+							<textarea id="description" class="WYSIWYG" name="summary" cols="40" rows="3" spellcheck="true"></textarea>
 						</div>
 
 						<!-- Row -->
@@ -289,20 +252,20 @@
 
 							<!-- Phone -->
 							<div class="col-md-4">
-								<h5>Phone <span>(optional)</span></h5>
-								<input type="text">
+								<h5>Teléfono <span>(opcional)</span></h5>
+								<input id="phone" type="text">
 							</div>
 
-							<!-- Website -->
+							<!-- Página web -->
 							<div class="col-md-4">
-								<h5>Website <span>(optional)</span></h5>
-								<input type="text">
+								<h5>Página web <span>(opcional)</span></h5>
+								<input id="web-site" type="text">
 							</div>
 
-							<!-- Email Address -->
+							<!-- Email -->
 							<div class="col-md-4">
-								<h5>E-mail <span>(optional)</span></h5>
-								<input type="text">
+								<h5>Email <span>(opcional)</span></h5>
+								<input id="email" type="text">
 							</div>
 
 						</div>
@@ -314,57 +277,25 @@
 
 							<!-- Phone -->
 							<div class="col-md-4">
-								<h5 class="fb-input"><i class="fa fa-facebook-square"></i> Facebook <span>(optional)</span></h5>
-								<input type="text" placeholder="https://www.facebook.com/">
+								<h5 class="fb-input"><i class="fa fa-facebook-square"></i> Facebook <span>(opcional)</span></h5>
+								<input id="facebook" type="text" placeholder="https://www.facebook.com/">
 							</div>
 
 							<!-- Website -->
 							<div class="col-md-4">
-								<h5 class="twitter-input"><i class="fa fa-twitter"></i> Twitter <span>(optional)</span></h5>
-								<input type="text" placeholder="https://www.twitter.com/">
+								<h5 class="twitter-input"><i class="fa fa-twitter"></i> Twitter <span>(opcional)</span></h5>
+								<input id="twitter" type="text" placeholder="https://www.twitter.com/">
 							</div>
 
 							<!-- Email Address -->
 							<div class="col-md-4">
-								<h5 class="gplus-input"><i class="fa fa-google-plus"></i> Google Plus <span>(optional)</span></h5>
-								<input type="text" placeholder="https://plus.google.com">
+								<h5 class="gplus-input"><i class="fa fa-instagram"></i> Instagram <span>(opcional)</span></h5>
+								<input id="instagram" type="text" placeholder="https://instagram.com/">
 							</div>
 
 						</div>
 						<!-- Row / End -->
 
-
-						<!-- Checkboxes -->
-						<h5 class="margin-top-30 margin-bottom-10">Amenities <span>(optional)</span></h5>
-						<div class="checkboxes in-row margin-bottom-20">
-					
-							<input id="check-a" type="checkbox" name="check">
-							<label for="check-a">Elevator in building</label>
-
-							<input id="check-b" type="checkbox" name="check">
-							<label for="check-b">Friendly workspace</label>
-
-							<input id="check-c" type="checkbox" name="check">
-							<label for="check-c">Instant Book</label>
-
-							<input id="check-d" type="checkbox" name="check">
-							<label for="check-d">Wireless Internet</label>
-
-							<input id="check-e" type="checkbox" name="check">
-							<label for="check-e">Free parking on premises</label>
-
-							<input id="check-f" type="checkbox" name="check">
-							<label for="check-f">Free parking on street</label>
-
-							<input id="check-g" type="checkbox" name="check">
-							<label for="check-g">Smoking allowed</label>	
-
-							<input id="check-h" type="checkbox" name="check">
-							<label for="check-h">Events</label>
-					
-						</div>
-						<!-- Checkboxes / End -->
-
 					</div>
 					<!-- Section / End -->
 
@@ -374,886 +305,9 @@
 						
 						<!-- Headline -->
 						<div class="add-listing-headline">
-							<h3><i class="fa fa-calendar-check-o"></i> Availability</h3>
+							<h3><i class="sl sl-icon-book-open"></i> Donaciones <i class="tip" data-tip-content="Si deseas recibir donaciones, llena la tabla de abajo, ejemplo:<br>Concepto: Donación de alimentos.<br>Descripción: Donaremos 1MXN por cada peso y será solo para comprar alimentos.<br>Monto: 100MXN"></i></h3>
 							<!-- Switcher -->
-							<label class="switch"><input type="checkbox" checked=""><span class="slider round"></span></label>
-						</div>
-						
-						<!-- Switcher ON-OFF Content -->
-						<div class="switcher-content">
-								
-								<!-- Availablity Slots -->
-								<!-- Set data-clock-type="24hr" to enable 24 hours clock type -->
-								<div class="availability-slots" data-clock-type="24hr">
-
-									<!-- Single Day Slots -->
-									<div class="day-slots">
-										<div class="day-slot-headline">
-											Monday
-										</div>
-										
-										<!-- Slot For Cloning / Do NOT Remove-->
-										<div class="single-slot cloned">
-											<div class="single-slot-left">
-												<div class="single-slot-time"></div>
-												<button class="remove-slot"><i class="fa fa-close"></i></button>
-											</div>
-
-											<div class="single-slot-right">
-												<strong>Slots:</strong>
-												<div class="plusminus horiz">
-													<button></button>
-													<input type="number" name="slot-qty" value="1" min="1" max="99">
-													<button></button> 
-												</div>
-											</div>
-										</div>		
-										<!-- Slot For Cloning / Do NOT Remove-->
-
-
-										<!-- No slots -->
-										<div class="no-slots">No slots added</div>
-
-										<!-- Slots Container -->
-										<div class="slots-container">
-
-											<!-- Single Slot -->
-											<div class="single-slot">
-												<div class="single-slot-left">
-													<div class="single-slot-time">8:30 <i class="am-pm">am</i> - 9:00 <i class="am-pm">am</i></div>
-													<button class="remove-slot"><i class="fa fa-close"></i></button>
-												</div>
-
-												<div class="single-slot-right">
-													<strong>Slots:</strong>
-													<div class="plusminus horiz">
-														<button></button>
-														<input type="number" name="slot-qty" value="1" min="1" max="99">
-														<button></button> 
-													</div>
-												</div>
-											</div>
-
-											<!-- Single Slot -->
-											<div class="single-slot">
-												<div class="single-slot-left">
-													<div class="single-slot-time">9:00 <i class="am-pm">am</i> - 9:30 <i class="am-pm">am</i></div>
-													<button class="remove-slot"><i class="fa fa-close"></i></button>
-												</div>
-
-												<div class="single-slot-right">
-													<strong>Slots:</strong>
-													<div class="plusminus horiz">
-														<button></button>
-														<input type="number" name="slot-qty" value="1" min="1" max="99">
-														<button></button> 
-													</div>
-												</div>
-											</div>
-
-											<!-- Single Slot -->
-											<div class="single-slot">
-												<div class="single-slot-left">
-													<div class="single-slot-time">9:30 <i class="am-pm">am</i> - 10:00 <i class="am-pm">am</i></div>
-													<button class="remove-slot"><i class="fa fa-close"></i></button>
-												</div>
-
-												<div class="single-slot-right">
-													<strong>Slots:</strong>
-													<div class="plusminus horiz">
-														<button></button>
-														<input type="number" name="slot-qty" value="1" min="1" max="99">
-														<button></button> 
-													</div>
-												</div>
-											</div>
-											
-										</div>
-										<!-- Slots Container / End -->
-
-
-										<!-- Add Slot -->
-										<div class="add-slot">
-											<div class="add-slot-inputs">
-        										<input type="time" class="time-slot-start" min="00:00" max="12:00">
-												<select class="time-slot-start twelve-hr" id="">
-													<option>am</option>
-													<option>pm</option>
-												</select>
-        										<span>-</span>
-
-   												<input type="time" class="time-slot-end" min="00:00" max="12:00">
-												<select class="time-slot-end twelve-hr" id="">
-													<option>am</option>
-													<option>pm</option>
-												</select>
-											</div>
-											<div class="add-slot-btn">
-												<button>Add</button>
-											</div>
-										</div>
-
-									</div>
-									<!-- Single Day Slots / End -->
-
-									<!-- Single Day Slots -->
-									<div class="day-slots">
-										<div class="day-slot-headline">
-											Tuesday
-										</div>
-										
-										<!-- Slot For Cloning / Do NOT Remove-->
-										<div class="single-slot cloned">
-											<div class="single-slot-left">
-												<div class="single-slot-time"></div>
-												<button class="remove-slot"><i class="fa fa-close"></i></button>
-											</div>
-
-											<div class="single-slot-right">
-												<strong>Slots:</strong>
-												<div class="plusminus horiz">
-													<button></button>
-													<input type="number" name="slot-qty" value="1" min="1" max="99">
-													<button></button> 
-												</div>
-											</div>
-										</div>		
-										<!-- Slot For Cloning / Do NOT Remove-->
-
-
-										<!-- No slots -->
-										<div class="no-slots">No slots added</div>
-
-										<!-- Slots Container -->
-										<div class="slots-container">
-
-											<!-- Single Slot -->
-											<div class="single-slot">
-												<div class="single-slot-left">
-													<div class="single-slot-time">8:30 <i class="am-pm">am</i> - 9:00 <i class="am-pm">am</i></div>
-													<button class="remove-slot"><i class="fa fa-close"></i></button>
-												</div>
-
-												<div class="single-slot-right">
-													<strong>Slots:</strong>
-													<div class="plusminus horiz">
-														<button></button>
-														<input type="number" name="slot-qty" value="1" min="1" max="99">
-														<button></button> 
-													</div>
-												</div>
-											</div>
-
-											<!-- Single Slot -->
-											<div class="single-slot">
-												<div class="single-slot-left">
-													<div class="single-slot-time">9:00 <i class="am-pm">am</i> - 9:30 <i class="am-pm">am</i></div>
-													<button class="remove-slot"><i class="fa fa-close"></i></button>
-												</div>
-
-												<div class="single-slot-right">
-													<strong>Slots:</strong>
-													<div class="plusminus horiz">
-														<button></button>
-														<input type="number" name="slot-qty" value="1" min="1" max="99">
-														<button></button> 
-													</div>
-												</div>
-											</div>
-
-											<!-- Single Slot -->
-											<div class="single-slot">
-												<div class="single-slot-left">
-													<div class="single-slot-time">9:30 <i class="am-pm">am</i> - 10:00 <i class="am-pm">am</i></div>
-													<button class="remove-slot"><i class="fa fa-close"></i></button>
-												</div>
-
-												<div class="single-slot-right">
-													<strong>Slots:</strong>
-													<div class="plusminus horiz">
-														<button></button>
-														<input type="number" name="slot-qty" value="1" min="1" max="99">
-														<button></button> 
-													</div>
-												</div>
-											</div>
-											
-										</div>
-										<!-- Slots Container / End -->
-
-
-										<!-- Add Slot -->
-										<div class="add-slot">
-											<div class="add-slot-inputs">
-        										<input type="time" class="time-slot-start" min="00:00" max="12:00">
-												<select class="time-slot-start twelve-hr" id="">
-													<option>am</option>
-													<option>pm</option>
-												</select>
-        										<span>-</span>
-
-   												<input type="time" class="time-slot-end" min="00:00" max="12:00">
-												<select class="time-slot-end twelve-hr" id="">
-													<option>am</option>
-													<option>pm</option>
-												</select>
-											</div>
-											<div class="add-slot-btn">
-												<button>Add</button>
-											</div>
-										</div>
-
-									</div>
-									<!-- Single Day Slots / End -->
-
-									<!-- Single Day Slots -->
-									<div class="day-slots">
-										<div class="day-slot-headline">
-											Wednesday
-										</div>
-										
-										<!-- Slot For Cloning / Do NOT Remove-->
-										<div class="single-slot cloned">
-											<div class="single-slot-left">
-												<div class="single-slot-time"></div>
-												<button class="remove-slot"><i class="fa fa-close"></i></button>
-											</div>
-
-											<div class="single-slot-right">
-												<strong>Slots:</strong>
-												<div class="plusminus horiz">
-													<button></button>
-													<input type="number" name="slot-qty" value="1" min="1" max="99">
-													<button></button> 
-												</div>
-											</div>
-										</div>		
-										<!-- Slot For Cloning / Do NOT Remove-->
-
-
-										<!-- No slots -->
-										<div class="no-slots">No slots added</div>
-
-										<!-- Slots Container -->
-										<div class="slots-container">
-
-											<!-- Single Slot -->
-											<div class="single-slot">
-												<div class="single-slot-left">
-													<div class="single-slot-time">8:30 <i class="am-pm">am</i> - 9:00 <i class="am-pm">am</i></div>
-													<button class="remove-slot"><i class="fa fa-close"></i></button>
-												</div>
-
-												<div class="single-slot-right">
-													<strong>Slots:</strong>
-													<div class="plusminus horiz">
-														<button></button>
-														<input type="number" name="slot-qty" value="1" min="1" max="99">
-														<button></button> 
-													</div>
-												</div>
-											</div>
-
-											<!-- Single Slot -->
-											<div class="single-slot">
-												<div class="single-slot-left">
-													<div class="single-slot-time">9:00 <i class="am-pm">am</i> - 9:30 <i class="am-pm">am</i></div>
-													<button class="remove-slot"><i class="fa fa-close"></i></button>
-												</div>
-
-												<div class="single-slot-right">
-													<strong>Slots:</strong>
-													<div class="plusminus horiz">
-														<button></button>
-														<input type="number" name="slot-qty" value="1" min="1" max="99">
-														<button></button> 
-													</div>
-												</div>
-											</div>
-
-											<!-- Single Slot -->
-											<div class="single-slot">
-												<div class="single-slot-left">
-													<div class="single-slot-time">9:30 <i class="am-pm">am</i> - 10:00 <i class="am-pm">am</i></div>
-													<button class="remove-slot"><i class="fa fa-close"></i></button>
-												</div>
-
-												<div class="single-slot-right">
-													<strong>Slots:</strong>
-													<div class="plusminus horiz">
-														<button></button>
-														<input type="number" name="slot-qty" value="1" min="1" max="99">
-														<button></button> 
-													</div>
-												</div>
-											</div>
-											
-										</div>
-										<!-- Slots Container / End -->
-
-
-										<!-- Add Slot -->
-										<div class="add-slot">
-											<div class="add-slot-inputs">
-        										<input type="time" class="time-slot-start" min="00:00" max="12:00">
-												<select class="time-slot-start twelve-hr" id="">
-													<option>am</option>
-													<option>pm</option>
-												</select>
-        										<span>-</span>
-
-   												<input type="time" class="time-slot-end" min="00:00" max="12:00">
-												<select class="time-slot-end twelve-hr" id="">
-													<option>am</option>
-													<option>pm</option>
-												</select>
-											</div>
-											<div class="add-slot-btn">
-												<button>Add</button>
-											</div>
-										</div>
-
-									</div>
-									<!-- Single Day Slots / End -->
-
-									<!-- Single Day Slots -->
-									<div class="day-slots">
-										<div class="day-slot-headline">
-											Thursday
-										</div>
-										
-										<!-- Slot For Cloning / Do NOT Remove-->
-										<div class="single-slot cloned">
-											<div class="single-slot-left">
-												<div class="single-slot-time"></div>
-												<button class="remove-slot"><i class="fa fa-close"></i></button>
-											</div>
-
-											<div class="single-slot-right">
-												<strong>Slots:</strong>
-												<div class="plusminus horiz">
-													<button></button>
-													<input type="number" name="slot-qty" value="1" min="1" max="99">
-													<button></button> 
-												</div>
-											</div>
-										</div>		
-										<!-- Slot For Cloning / Do NOT Remove-->
-
-
-										<!-- No slots -->
-										<div class="no-slots">No slots added</div>
-
-										<!-- Slots Container -->
-										<div class="slots-container">
-
-											<!-- Single Slot -->
-											<div class="single-slot">
-												<div class="single-slot-left">
-													<div class="single-slot-time">8:30 <i class="am-pm">am</i> - 9:00 <i class="am-pm">am</i></div>
-													<button class="remove-slot"><i class="fa fa-close"></i></button>
-												</div>
-
-												<div class="single-slot-right">
-													<strong>Slots:</strong>
-													<div class="plusminus horiz">
-														<button></button>
-														<input type="number" name="slot-qty" value="1" min="1" max="99">
-														<button></button> 
-													</div>
-												</div>
-											</div>
-
-											<!-- Single Slot -->
-											<div class="single-slot">
-												<div class="single-slot-left">
-													<div class="single-slot-time">9:00 <i class="am-pm">am</i> - 9:30 <i class="am-pm">am</i></div>
-													<button class="remove-slot"><i class="fa fa-close"></i></button>
-												</div>
-
-												<div class="single-slot-right">
-													<strong>Slots:</strong>
-													<div class="plusminus horiz">
-														<button></button>
-														<input type="number" name="slot-qty" value="1" min="1" max="99">
-														<button></button> 
-													</div>
-												</div>
-											</div>
-
-											<!-- Single Slot -->
-											<div class="single-slot">
-												<div class="single-slot-left">
-													<div class="single-slot-time">9:30 <i class="am-pm">am</i> - 10:00 <i class="am-pm">am</i></div>
-													<button class="remove-slot"><i class="fa fa-close"></i></button>
-												</div>
-
-												<div class="single-slot-right">
-													<strong>Slots:</strong>
-													<div class="plusminus horiz">
-														<button></button>
-														<input type="number" name="slot-qty" value="1" min="1" max="99">
-														<button></button> 
-													</div>
-												</div>
-											</div>
-											
-										</div>
-										<!-- Slots Container / End -->
-
-
-										<!-- Add Slot -->
-										<div class="add-slot">
-											<div class="add-slot-inputs">
-        										<input type="time" class="time-slot-start" min="00:00" max="12:00">
-												<select class="time-slot-start twelve-hr" id="">
-													<option>am</option>
-													<option>pm</option>
-												</select>
-        										<span>-</span>
-
-   												<input type="time" class="time-slot-end" min="00:00" max="12:00">
-												<select class="time-slot-end twelve-hr" id="">
-													<option>am</option>
-													<option>pm</option>
-												</select>
-											</div>
-											<div class="add-slot-btn">
-												<button>Add</button>
-											</div>
-										</div>
-
-									</div>
-									<!-- Single Day Slots / End -->
-
-									<!-- Single Day Slots -->
-									<div class="day-slots">
-										<div class="day-slot-headline">
-											Friday
-										</div>
-										
-										<!-- Slot For Cloning / Do NOT Remove-->
-										<div class="single-slot cloned">
-											<div class="single-slot-left">
-												<div class="single-slot-time"></div>
-												<button class="remove-slot"><i class="fa fa-close"></i></button>
-											</div>
-
-											<div class="single-slot-right">
-												<strong>Slots:</strong>
-												<div class="plusminus horiz">
-													<button></button>
-													<input type="number" name="slot-qty" value="1" min="1" max="99">
-													<button></button> 
-												</div>
-											</div>
-										</div>		
-										<!-- Slot For Cloning / Do NOT Remove-->
-
-
-										<!-- No slots -->
-										<div class="no-slots">No slots added</div>
-
-										<!-- Slots Container -->
-										<div class="slots-container">
-
-											<!-- Single Slot -->
-											<div class="single-slot">
-												<div class="single-slot-left">
-													<div class="single-slot-time">8:30 <i class="am-pm">am</i> - 9:00 <i class="am-pm">am</i></div>
-													<button class="remove-slot"><i class="fa fa-close"></i></button>
-												</div>
-
-												<div class="single-slot-right">
-													<strong>Slots:</strong>
-													<div class="plusminus horiz">
-														<button></button>
-														<input type="number" name="slot-qty" value="1" min="1" max="99">
-														<button></button> 
-													</div>
-												</div>
-											</div>
-
-											<!-- Single Slot -->
-											<div class="single-slot">
-												<div class="single-slot-left">
-													<div class="single-slot-time">9:00 <i class="am-pm">am</i> - 9:30 <i class="am-pm">am</i></div>
-													<button class="remove-slot"><i class="fa fa-close"></i></button>
-												</div>
-
-												<div class="single-slot-right">
-													<strong>Slots:</strong>
-													<div class="plusminus horiz">
-														<button></button>
-														<input type="number" name="slot-qty" value="1" min="1" max="99">
-														<button></button> 
-													</div>
-												</div>
-											</div>
-
-											<!-- Single Slot -->
-											<div class="single-slot">
-												<div class="single-slot-left">
-													<div class="single-slot-time">9:30 <i class="am-pm">am</i> - 10:00 <i class="am-pm">am</i></div>
-													<button class="remove-slot"><i class="fa fa-close"></i></button>
-												</div>
-
-												<div class="single-slot-right">
-													<strong>Slots:</strong>
-													<div class="plusminus horiz">
-														<button></button>
-														<input type="number" name="slot-qty" value="1" min="1" max="99">
-														<button></button> 
-													</div>
-												</div>
-											</div>
-											
-										</div>
-										<!-- Slots Container / End -->
-
-
-										<!-- Add Slot -->
-										<div class="add-slot">
-											<div class="add-slot-inputs">
-        										<input type="time" class="time-slot-start" min="00:00" max="12:00">
-												<select class="time-slot-start twelve-hr" id="">
-													<option>am</option>
-													<option>pm</option>
-												</select>
-        										<span>-</span>
-
-   												<input type="time" class="time-slot-end" min="00:00" max="12:00">
-												<select class="time-slot-end twelve-hr" id="">
-													<option>am</option>
-													<option>pm</option>
-												</select>
-											</div>
-											<div class="add-slot-btn">
-												<button>Add</button>
-											</div>
-										</div>
-
-									</div>
-									<!-- Single Day Slots / End -->
-
-									<!-- Single Day Slots -->
-									<div class="day-slots">
-										<div class="day-slot-headline">
-											Saturday
-										</div>
-										
-										<!-- Slot For Cloning / Do NOT Remove-->
-										<div class="single-slot cloned">
-											<div class="single-slot-left">
-												<div class="single-slot-time"></div>
-												<button class="remove-slot"><i class="fa fa-close"></i></button>
-											</div>
-
-											<div class="single-slot-right">
-												<strong>Slots:</strong>
-												<div class="plusminus horiz">
-													<button></button>
-													<input type="number" name="slot-qty" value="1" min="1" max="99">
-													<button></button> 
-												</div>
-											</div>
-										</div>		
-										<!-- Slot For Cloning / Do NOT Remove-->
-
-
-										<!-- No slots -->
-										<div class="no-slots">No slots added</div>
-
-										<!-- Slots Container -->
-										<div class="slots-container">
-											
-										</div>
-										<!-- Slots Container / End -->
-
-
-										<!-- Add Slot -->
-										<div class="add-slot">
-											<div class="add-slot-inputs">
-        										<input type="time" class="time-slot-start" min="00:00" max="12:00">
-												<select class="time-slot-start twelve-hr" id="">
-													<option>am</option>
-													<option>pm</option>
-												</select>
-        										<span>-</span>
-
-   												<input type="time" class="time-slot-end" min="00:00" max="12:00">
-												<select class="time-slot-end twelve-hr" id="">
-													<option>am</option>
-													<option>pm</option>
-												</select>
-											</div>
-											<div class="add-slot-btn">
-												<button>Add</button>
-											</div>
-										</div>
-
-									</div>
-									<!-- Single Day Slots / End -->
-
-									<!-- Single Day Slots -->
-									<div class="day-slots">
-										<div class="day-slot-headline">
-											Sunday
-										</div>
-										
-										<!-- Slot For Cloning / Do NOT Remove-->
-										<div class="single-slot cloned">
-											<div class="single-slot-left">
-												<div class="single-slot-time"></div>
-												<button class="remove-slot"><i class="fa fa-close"></i></button>
-											</div>
-
-											<div class="single-slot-right">
-												<strong>Slots:</strong>
-												<div class="plusminus horiz">
-													<button></button>
-													<input type="number" name="slot-qty" value="1" min="1" max="99">
-													<button></button> 
-												</div>
-											</div>
-										</div>		
-										<!-- Slot For Cloning / Do NOT Remove-->
-
-
-										<!-- No slots -->
-										<div class="no-slots">No slots added</div>
-
-										<!-- Slots Container -->
-										<div class="slots-container">
-											
-										</div>
-										<!-- Slots Container / End -->
-
-
-										<!-- Add Slot -->
-										<div class="add-slot">
-											<div class="add-slot-inputs">
-        										<input type="time" class="time-slot-start" min="00:00" max="12:00">
-												<select class="time-slot-start twelve-hr" id="">
-													<option>am</option>
-													<option>pm</option>
-												</select>
-        										<span>-</span>
-
-   												<input type="time" class="time-slot-end" min="00:00" max="12:00">
-												<select class="time-slot-end twelve-hr" id="">
-													<option>am</option>
-													<option>pm</option>
-												</select>
-											</div>
-											<div class="add-slot-btn">
-												<button>Add</button>
-											</div>
-										</div>
-
-									</div>
-									<!-- Single Day Slots / End -->
-
-								</div>
-								<!-- Availablity Slots / End -->
-
-						</div>
-						<!-- Switcher ON-OFF Content / End -->
-
-					</div>
-					<!-- Section / End -->
-
-
-					<!-- Section -->
-					<div class="add-listing-section margin-top-45">
-						
-						<!-- Headline -->
-						<div class="add-listing-headline">
-							<h3><i class="sl sl-icon-clock"></i> Opening Hours</h3>
-							<!-- Switcher -->
-							<label class="switch"><input type="checkbox" checked=""><span class="slider round"></span></label>
-						</div>
-						
-						<!-- Switcher ON-OFF Content -->
-						<div class="switcher-content">
-
-							<!-- Day -->
-							<div class="row opening-day">
-								<div class="col-md-2"><h5>Monday</h5></div>
-								<div class="col-md-5">
-									<select class="chosen-select" data-placeholder="Opening Time">
-										<option label="Opening Time"></option>
-										<option>Closed</option>
-										<option>1 AM</option>
-										<option>2 AM</option>
-										<option>3 AM</option>
-										<option>4 AM</option>
-										<option>5 AM</option>
-										<option>6 AM</option>
-										<option>7 AM</option>
-										<option>8 AM</option>
-										<option>9 AM</option>
-										<option>10 AM</option>
-										<option>11 AM</option>
-										<option>12 AM</option>	
-										<option>1 PM</option>
-										<option>2 PM</option>
-										<option>3 PM</option>
-										<option>4 PM</option>
-										<option>5 PM</option>
-										<option>6 PM</option>
-										<option>7 PM</option>
-										<option>8 PM</option>
-										<option>9 PM</option>
-										<option>10 PM</option>
-										<option>11 PM</option>
-										<option>12 PM</option>
-									</select>
-								</div>
-								<div class="col-md-5">
-									<select class="chosen-select" data-placeholder="Closing Time">
-										<option label="Closing Time"></option>
-										<option>Closed</option>
-										<option>1 AM</option>
-										<option>2 AM</option>
-										<option>3 AM</option>
-										<option>4 AM</option>
-										<option>5 AM</option>
-										<option>6 AM</option>
-										<option>7 AM</option>
-										<option>8 AM</option>
-										<option>9 AM</option>
-										<option>10 AM</option>
-										<option>11 AM</option>
-										<option>12 AM</option>	
-										<option>1 PM</option>
-										<option>2 PM</option>
-										<option>3 PM</option>
-										<option>4 PM</option>
-										<option>5 PM</option>
-										<option>6 PM</option>
-										<option>7 PM</option>
-										<option>8 PM</option>
-										<option>9 PM</option>
-										<option>10 PM</option>
-										<option>11 PM</option>
-										<option>12 PM</option>
-									</select>
-								</div>
-							</div>
-							<!-- Day / End -->
-
-							<!-- Day -->
-							<div class="row opening-day js-demo-hours">
-								<div class="col-md-2"><h5>Tuesday</h5></div>
-								<div class="col-md-5">
-									<select class="chosen-select" data-placeholder="Opening Time">
-										<!-- Hours added via JS (this is only for demo purpose) -->
-									</select>
-								</div>
-								<div class="col-md-5">
-									<select class="chosen-select" data-placeholder="Closing Time">
-										<!-- Hours added via JS (this is only for demo purpose) -->
-									</select>
-								</div>
-							</div>
-							<!-- Day / End -->
-
-							<!-- Day -->
-							<div class="row opening-day js-demo-hours">
-								<div class="col-md-2"><h5>Wednesday</h5></div>
-								<div class="col-md-5">
-									<select class="chosen-select" data-placeholder="Opening Time">
-										<!-- Hours added via JS (this is only for demo purpose) -->
-									</select>
-								</div>
-								<div class="col-md-5">
-									<select class="chosen-select" data-placeholder="Closing Time">
-										<!-- Hours added via JS (this is only for demo purpose) -->
-									</select>
-								</div>
-							</div>
-							<!-- Day / End -->
-
-							<!-- Day -->
-							<div class="row opening-day js-demo-hours">
-								<div class="col-md-2"><h5>Thursday</h5></div>
-								<div class="col-md-5">
-									<select class="chosen-select" data-placeholder="Opening Time">
-										<!-- Hours added via JS (this is only for demo purpose) -->
-									</select>
-								</div>
-								<div class="col-md-5">
-									<select class="chosen-select" data-placeholder="Closing Time">
-										<!-- Hours added via JS (this is only for demo purpose) -->
-									</select>
-								</div>
-							</div>
-							<!-- Day / End -->
-
-							<!-- Day -->
-							<div class="row opening-day js-demo-hours">
-								<div class="col-md-2"><h5>Friday</h5></div>
-								<div class="col-md-5">
-									<select class="chosen-select" data-placeholder="Opening Time">
-										<!-- Hours added via JS (this is only for demo purpose) -->
-									</select>
-								</div>
-								<div class="col-md-5">
-									<select class="chosen-select" data-placeholder="Closing Time">
-										<!-- Hours added via JS (this is only for demo purpose) -->
-									</select>
-								</div>
-							</div>
-							<!-- Day / End -->
-
-							<!-- Day -->
-							<div class="row opening-day js-demo-hours">
-								<div class="col-md-2"><h5>Saturday</h5></div>
-								<div class="col-md-5">
-									<select class="chosen-select" data-placeholder="Opening Time">
-										<!-- Hours added via JS (this is only for demo purpose) -->
-									</select>
-								</div>
-								<div class="col-md-5">
-									<select class="chosen-select" data-placeholder="Closing Time">
-										<!-- Hours added via JS (this is only for demo purpose) -->
-									</select>
-								</div>
-							</div>
-							<!-- Day / End -->
-
-							<!-- Day -->
-							<div class="row opening-day js-demo-hours">
-								<div class="col-md-2"><h5>Sunday</h5></div>
-								<div class="col-md-5">
-									<select class="chosen-select" data-placeholder="Opening Time">
-										<!-- Hours added via JS (this is only for demo purpose) -->
-									</select>
-								</div>
-								<div class="col-md-5">
-									<select class="chosen-select" data-placeholder="Closing Time">
-										<!-- Hours added via JS (this is only for demo purpose) -->
-									</select>
-								</div>
-							</div>
-							<!-- Day / End -->
-
-						</div>
-						<!-- Switcher ON-OFF Content / End -->
-
-					</div>
-					<!-- Section / End -->
-
-
-					<!-- Section -->
-					<div class="add-listing-section margin-top-45">
-						
-						<!-- Headline -->
-						<div class="add-listing-headline">
-							<h3><i class="sl sl-icon-book-open"></i> Pricing</h3>
-							<!-- Switcher -->
-							<label class="switch"><input type="checkbox" checked=""><span class="slider round"></span></label>
+							<label class="switch"><input id="receive-donations" type="checkbox" checked=""><span class="slider round"></span></label>
 						</div>
 
 						<!-- Switcher ON-OFF Content -->
@@ -1265,16 +319,26 @@
 										<tr class="pricing-list-item pattern">
 											<td>
 												<div class="fm-move"><i class="sl sl-icon-cursor-move"></i></div>
-												<div class="fm-input pricing-name"><input type="text" placeholder="Title"></div>
-												<div class="fm-input pricing-ingredients"><input type="text" placeholder="Description"></div>
-												<div class="fm-input pricing-price"><input type="text" placeholder="Price" data-unit="USD"></div>
+												<div class="fm-input pricing-name"><input type="text" placeholder="Titulo"></div>
+												<div class="fm-input pricing-ingredients"><input type="text" placeholder="Descripción"></div>
+												<div class="fm-input pricing-price"><input type="text" placeholder="Monto" data-unit="MXN"></div>
 												<div class="fm-close"><a class="delete" href="#"><i class="fa fa-remove"></i></a></div>
 											</td>
 										</tr>
 									</table>
-									<a href="#" class="button add-pricing-list-item">Add Item</a>
-									<a href="#" class="button add-pricing-submenu">Add Category</a>
+									<a href="#" class="button add-pricing-list-item">Agregar Opción</a>
+									<!-- <a href="#" class="button add-pricing-submenu">Add Category</a> -->
 								</div>
+
+								<!-- Online ó presencial -->
+								<div class="col-md-6">
+								<h5>¿Acepta donación personalizada?</h5>
+									<select id="personalized-donation" class="chosen-select-no-single">
+										<option value="yes">Si</option>
+										<option value="no">No</option>
+									</select>
+								</div>
+
 							</div>
 
 						</div>
@@ -1284,14 +348,14 @@
 					<!-- Section / End -->
 
 
-					<a href="#" class="button preview">Preview <i class="fa fa-arrow-circle-right"></i></a>
+					<a href="#" id="save-project" class="button preview">Guardar <i class="fa fa-arrow-circle-right"></i></a>
 
 				</div>
 			</div>
 
 			<!-- Copyrights -->
 			<div class="col-md-12">
-				<div class="copyrights">© 2019 Listeo. All Rights Reserved.</div>
+				<div class="copyrights">© 2021 Cuxeya. Propiedad de Bull & Bear Foundation.</div>
 			</div>
 
 		</div>
@@ -1307,6 +371,9 @@
 </div>
 <!-- Wrapper / End -->
 
+<div id="loading-always" class="loading-div">
+          This div is always loading
+</div>
 
 <!-- Scripts
 ================================================== -->
@@ -1322,7 +389,8 @@
 <script type="text/javascript" src="{{ asset('scripts\jquery-ui.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('scripts\tooltips.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('scripts\custom.js') }}"></script>
-
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"></script>
+<script type="text/javascript" src="{{ asset('scripts/jquery.richtext.js') }}"></script>
 
 <!-- Opening hours added via JS (this is only for demo purpose) -->
 <script>
@@ -1360,13 +428,14 @@ $(".opening-day.js-demo-hours .chosen-select").each(function() {
 <!-- DropZone | Documentation: http://dropzonejs.com -->
 <script type="text/javascript" src="{{ asset('scripts\dropzone.js') }}"></script>
 <script type="text/javascript">
+
         Dropzone.options.dropzone =
         {
             maxFilesize: 10,
             renameFile: function (file) {
                 var dt = new Date();
                 var time = dt.getTime();
-                return time + file.name;
+                return file.name;
             },
             acceptedFiles: ".jpeg,.jpg,.png,.gif",
             addRemoveLinks: true,
@@ -1376,10 +445,29 @@ $(".opening-day.js-demo-hours .chosen-select").each(function() {
             },
             error: function (file, response) {
 				console.log(response);
-				console.log('error porque no se jajajaja :(');
                 return false;
-            }
-        };
+			},
+			init: function() {
+				this.on("addedfile", function(file) {
+					console.log("Added file:" + file.name);
+					add_file_element(file.name);
+				});
+				this.on("removedfile", function(file) {
+					console.log("removed file:" + file.name); 
+					remove_file_element(file.name);
+				});
+  			}
+        	};
     </script>
+	<script type="text/javascript" src="{{ asset('scripts/custom/projects.js') }}"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {  
+    		$.ajaxSetup({
+        		headers: {
+            		'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        		}
+    		});
+  		});
+</script>
 
 </body>

@@ -87,7 +87,7 @@
 		<div class="dashboard-nav-inner">
 
 			<ul data-submenu-title="Principal">
-				<li class="active"><a href="admin"><i class="sl sl-icon-settings"></i> Dashboard</a></li>
+				<li class="active"><a href="/admin"><i class="sl sl-icon-settings"></i> Dashboard</a></li>
 				<!-- <li><a href="{{ route('users.index') }}"><i class="sl sl-icon-user"></i> Usuarios</a></li>
 				<li><a href="{{ route('estates.index') }}"><i class="sl sl-icon-star"></i> Estados</a></li>
 				<li><a href="/admin-cat"><i class="sl sl-icon-star"></i> Categorías</a></li>

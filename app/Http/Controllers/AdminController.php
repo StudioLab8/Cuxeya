@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use Illuminate\Http\Request;
+use App\Project;
+use App\Beneficiary;
+use App\User;
 
 class AdminController extends Controller
 {
@@ -23,7 +27,27 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin');
+        if(Auth::user()->type == "ADMIN") {
+            $total_actived_projects = Project::where('activated', '=', true)->count();
+            $total_projects = Project::count();
+            $total_brazos = User::where('type', '=', 'BRAZO')->count();
+            $total_beneficiaries_attended = Beneficiary::where('attended', '=', true)->count();
+        } else {
+            $total_actived_projects = Project::where('activated', '=', true)
+                                             ->where('user_id', '=', Auth::user()->id)
+                                             ->count();
+            $total_projects = Project::where('user_id', '=', Auth::user()->id)->count();
+            $total_brazos = User::where('type', '=', 'BRAZO')->count();
+            $total_beneficiaries_attended = Beneficiary::where('attended', '=', true)
+                                                        ->where('user_id', '=', Auth::user()->id)
+                                                        ->count();
+        }
+        
+        return view('admin.admin', compact('total_actived_projects', 
+                                           'total_projects',
+                                            'total_brazos',
+                                            'total_beneficiaries_attended'
+               ));
     }
 
     /**

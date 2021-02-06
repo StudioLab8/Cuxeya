@@ -62,7 +62,7 @@
 							<ul>
 								<li><a href="/como-funciona">¿Cómo funciona?</a></li>
 								<li><a href="/iniciativa-cuxeya">Iniciativa Cuxeya.org</a></li>
-								<li><a href="/blog">Blog</a></li>
+								<li><a href="/noticias">Noticias</a></li>
 							</ul>
 						</li>
 						<li><a href="/contacto">Contacto</a></li>
@@ -209,7 +209,7 @@
 						<!-- Typed words can be configured in script settings at the bottom of this HTML file -->
 						
 					</h2>
-					<h4>Ya eres parte de este gran proyecto</h4>
+					<h4>Estas a un paso para obtener el beneficio de este proyecto</h4>
 		</div>
 
 	</div>
@@ -229,7 +229,7 @@
 				@if(session()->get('success'))
 				<h3 class="margin-top-30">{{ session()->get('success') }}</h3>
   				@endif
-				<p>Una persona de nuestro equipo te contactará lo antes posible para darle seguimiento a tu solicitud</p>
+				<p>Una persona de nuestro equipo te notificará lo antes posible para darle seguimiento a tu solicitud</p>
 				<a href="/inicio" class="button margin-top-30">Volver al inicio</a>
 			</div>
 
