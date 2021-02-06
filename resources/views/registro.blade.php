@@ -63,7 +63,7 @@
 						<ul>
 							<li><a href="/como-funciona">¿Cómo funciona?</a></li>
 							<li><a href="/iniciativa-cuxeya">Iniciativa Cuxeya.org</a></li>
-							<li><a href="/blog">Blog</a></li>
+							<li><a href="/noticias">Noticias</a></li>
 						</ul>
 					</li>
 					<li><a  href="/contacto">Contacto</a></li>
@@ -240,7 +240,7 @@
 			</p>
 
 			<p class="form-row form-row-wide">
-				<label for="password2">Conformar contraseña:
+				<label for="password2">Confirmar contraseña:
 					<i class="im im-icon-Lock-2"></i>
 					<input class="input-text" type="password" name="password_confirmation" id="password2">
 				</label>

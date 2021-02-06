@@ -58,9 +58,11 @@ class UserController extends Controller
 
         $user->save();
         
+        $url_site = env('APP_URL');
         $data = [
                  'user' => $user->name,
-                 'url' => 'https://cuxeya.org/validateAccount?token=' . $user->remember_token
+                 'url' => $url_site . '/validateAccount?token=' . $user->remember_token,
+                 'url_base' => $url_site
                 ];
         Mail::to($user->email)->send(new Welcome($data));
 

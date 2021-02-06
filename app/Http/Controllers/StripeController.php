@@ -14,15 +14,14 @@ class StripeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-  
+    {   
         $stripe = Stripe::charges()->create([
             'source' => $request->get('tokenId'),
             'currency' => 'MXN',
-            'description' =>  $request->get('description'),
+            'description' => $request->get('description'),
             'amount' => $request->get('amount')
         ]);
-  
+        
         return $stripe;
     }
 }

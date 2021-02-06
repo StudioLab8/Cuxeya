@@ -17,33 +17,6 @@ use Illuminate\Support\Facades\Route;
  * Web Site
  */
 
-Route::get('/', function () {
-    // return view('welcome');
-    // return view('mantenimiento');
-    return view('index2');
-});
-
-Route::get('/home', function () {
-    return view('index');
-});
-
-/*Route::get('/admin', function () {
-    return view('admin');
-});*/
-
-Route::get('/inicio', function () {
-    return view('index2');
-})->name('inicio');
-
-Route::get('/todas-las-ayudas', function () {
-    return view('ayudas');
-});
-Route::get('/fundaciones', function () {
-    return view('fundaciones');
-});
-Route::get('/bull-and-bear', function () {
-    return view('bullandbear');
-});
 Route::get('/aviso-de-privacidad', function () {
     return view('aviso');
 });
@@ -60,14 +33,6 @@ Route::get('/iniciativa-cuxeya', function () {
     return view('iniciativa');
 });
 
-Route::get('/blog', function () {
-    return view('blog');
-});
-
-Route::get('/LinkedIn-abrio-su-pagina-para-cursos-online-gratuitos', function () {
-    return view('blog01');
-});
-
 Route::get('/contacto', function () {
     return view('contacto');
 });
@@ -80,54 +45,6 @@ Route::get('/registro-brazo-exitoso', function () {
     return view('registro-brazo-exitoso');
 });
 
-Route::get('/salvando-vidas', function () {
-    return view('salvandovidas');
-});
-
-Route::get('/adopta-un-abuelito', function () {
-    return view('adoptaunabuelito');
-});
-
-Route::get('/tejiendo-redes-libertad', function () {
-    return view('tejiendoredes');
-});
-
-Route::get('/underdogs', function () {
-    return view('underdogs');
-});
-
-Route::get('/abriga-bebe', function () {
-    return view('ropa-bebe');
-});
-
-Route::get('/laptops', function () {
-    return view('laptops');
-});
-
-Route::get('/registro-salvando-vidas', function () {
-    return view('registro-salvando-vidas');
-});
-
-Route::get('/registro-adopta-abuelito', function () {
-    return view('registro-adopta-abuelito');
-});
-
-Route::get('/registro-tejiendo-redes-libertad', function () {
-    return view('registro-tejiendo-redes');
-});
-
-Route::get('/registro-underdogs', function () {
-    return view('registro-underdog');
-});
-
-Route::get('/registro-ropa-bebe', function () {
-    return view('registro-ropa-bebe');
-});
-
-Route::get('/registro-laptops', function () {
-    return view('registro-laptops');
-});
-
 Route::get('/registro-exitoso', function () {
     return view('registro-exitoso');
 });
@@ -136,35 +53,91 @@ Route::get('/mensaje-exitoso', function () {
     return view('mensaje-exitoso');
 });
 
-Route::get('/donar', function () {
-    return view('donar');
-});
-
 Route::get('/cambiar-password-exitoso', function () {
     return view('cambiar-password-exitoso');
 });
+
+//Admin Change After
+Route::get('/confirm-project-user', function () {
+    return view('admin.projects.confirm');
+});
+
+
+/**
+ * Site Web Public Routes
+*/
+
+Route::get('/', 'SiteWebController@home')->name('inicio');
+Route::get('/inicio', 'SiteWebController@home')->name('inicio');
+Route::get('/proyecto/{url}', 'SiteWebController@project');
+Route::get('/proyecto/{url}/aplicar', 'SiteWebController@apply')->name('proyecto.aplicar');
+Route::get('/noticias', 'SiteWebController@all_news')->name('noticias');
+Route::get('/noticia/{url}', 'SiteWebController@news_item')->name('noticias-item');
+Route::get('/todas-las-ayudas', 'SiteWebController@all_projects')->name('proyectos');
 
 /**
  * Admin Routes
  */
 
-Route::resource('estates', 'EstateController');
-
-Route::resource('users', 'UserController');
-
-Route::resource('savinglives', 'SavingLivesController');
-
-Route::resource('adoptgrandpa', 'AdoptGrandpaController');
-
-Route::resource('contact', 'ContactController');
-
+// Stripe
 Route::post('stripe', 'StripeController@store');
 
-Route::resource('admin', 'AdminController');
+// Administrator
+Route::resource('/admin', 'AdminController');
 
-Route::resource('projects', 'ProjectController');
 
+// Galleries Controllers.
 Route::post('/dropzone/store','ImageController@store')->name('dropzone.store');
+Route::post('/dropzone/news/store','GalleryNewsController@store')->name('dropzone.news.store');
+Route::post('/dropzone/news/destroy/{id}','GalleryNewsController@destroy')->name('dropzone.news.destroy');
+Route::post('/upload/docs/store','DocumentController@store');
+
+// Projects
+Route::get('projects/index', 'ProjectController@index')->name('projects.index');
+Route::get('projects/show/{id}', 'ProjectController@show')->name('projects.show');
+Route::get('projects/create', 'ProjectController@create')->name('projects.create');
+Route::post('projects/store', 'ProjectController@store')->name('projects.store');
+Route::post('projects/publish', 'ProjectController@publish')->name('projects.publish');
+Route::get('projects/list-pending', 'ProjectController@list_pending')->name('projects.list-pending');
+Route::get('projects/list-rejected', 'ProjectController@list_rejected')->name('projects.list-rejected');
+Route::get('projects/list-accepted', 'ProjectController@list_accepted')->name('projects.list-accepted');
+Route::get('projects/list-by-user', 'ProjectController@list_by_user')->name('projects.list-by-user');
+Route::post('projects/check', 'ProjectController@check')->name('projects.check');
+
+// Beneficiaries
+Route::post('beneficiary/store', 'BeneficiaryController@store')->name('beneficiary.store');
+Route::get('beneficiary/show/{id}', 'BeneficiaryController@show')->name('beneficiary.show');
+Route::get('beneficiary/list-pending', 'BeneficiaryController@list_pending')->name('beneficiary.list-pending');
+Route::get('beneficiary/list-rejected', 'BeneficiaryController@list_rejected')->name('beneficiary.list-rejected');
+Route::get('beneficiary/list-accepted', 'BeneficiaryController@list_accepted')->name('beneficiary.list-accepted');
+Route::get('beneficiary/list-contacting', 'BeneficiaryController@list_contacting')->name('beneficiary.list-contacting');
+Route::get('beneficiary/list-attending', 'BeneficiaryController@list_attending')->name('beneficiary.list-attending');
+Route::get('beneficiary/list-attended', 'BeneficiaryController@list_attended')->name('beneficiary.list-attended');
+Route::get('beneficiary/list-by-user', 'BeneficiaryController@list_by_user')->name('beneficiary.list-by-user');
+Route::post('beneficiary/check', 'BeneficiaryController@check')->name('beneficiary.check');
+Route::post('beneficiary/contact', 'BeneficiaryController@contact')->name('beneficiary.contact');
+Route::get('beneficiary/confirm-contact', 'BeneficiaryController@confirm_contact');
+Route::get('beneficiary/confirm-attending', 'BeneficiaryController@confirm_attending');
+
+// News
+Route::get('news/index', 'NewsController@index')->name('news.index');
+Route::get('news/create', 'NewsController@create')->name('news.create');
+Route::post('news/store', 'NewsController@store')->name('news.store');
+Route::get('news/edit/{id}', 'NewsController@edit')->name('news.edit');
+Route::post('news/update', 'NewsController@update')->name('news.update');
+
+// Testimonials
+Route::get('testimonials/index', 'TestimonialsController@index')->name('testimonials.index');
+Route::get('testimonials/create', 'TestimonialsController@create')->name('testimonials.create');
+Route::post('testimonials/store', 'TestimonialsController@store')->name('testimonials.store');
+Route::get('testimonials/edit/{id}', 'TestimonialsController@edit')->name('testimonials.edit');
+Route::post('testimonials/update', 'TestimonialsController@update')->name('testimonials.update');
+
+// Contacts
+Route::resource('contact', 'ContactController');
+
+// Users
+Route::resource('users', 'UserController');
 
 //Route::resource('assistance', 'AssistanceController');
 Route::post('/assistance/new', 'AssistanceController@store')

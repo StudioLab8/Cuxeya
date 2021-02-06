@@ -9,7 +9,7 @@
 
 <!-- CSS
 ================================================== -->
-<link rel="stylesheet" href="css\style.css">
+<link rel="stylesheet" href="css\style_original.css">
 <link rel="stylesheet" href="css\main-color.css" id="colors">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
 
@@ -20,102 +20,12 @@
 <!-- Wrapper -->
 <div id="wrapper">
 
-<!-- Header Container
-================================================== -->
-<header id="header-container" class="fixed fullwidth dashboard">
-
-	<!-- Header -->
-	<div id="header" class="not-sticky">
-		<div class="container">
-			
-			<!-- Left Side Content -->
-			<div class="left-side">
-				
-				<!-- Logo -->
-				<div id="logo">
-					<a href="index.html"><img src="images\logo_cuxeya.png" alt=""></a>
-					<a href="index.html" class="dashboard-logo"><img src="images\logo_cuxeya.png" alt=""></a>
-				</div>
-
-				<!-- Mobile Navigation -->
-				<div class="mmenu-trigger">
-					<button class="hamburger hamburger--collapse" type="button">
-						<span class="hamburger-box">
-							<span class="hamburger-inner"></span>
-						</span>
-					</button>
-				</div>
-				
-			</div>
-			<!-- Left Side Content / End -->
-
-			<!-- Right Side Content / End -->
-			<div class="right-side">
-				<!-- Header Widget -->
-				<div class="header-widget">
-					
-					<!-- User Menu -->
-					<div class="user-menu">
-						<div class="user-name"><span><img src="images\avatar2.png" alt=""></span>Mi cuenta</div>
-						<ul>
-							<li><a href="/"><i class="sl sl-icon-power"></i> Salir</a></li>
-						</ul>
-					</div>
-				</div>
-				<!-- Header Widget / End -->
-			</div>
-			<!-- Right Side Content / End -->
-
-		</div>
-	</div>
-	<!-- Header / End -->
-
-</header>
-<div class="clearfix"></div>
-<!-- Header Container / End -->
-
+@include("admin.layouts.header-admin")
 
 <!-- Dashboard -->
 <div id="dashboard">
 
-	<!-- Navigation
-	================================================== -->
-
-	<!-- Responsive Navigation Trigger -->
-	<a href="#" class="dashboard-responsive-nav-trigger"><i class="fa fa-reorder"></i> Dashboard Navigation</a>
-
-	<div class="dashboard-nav">
-		<div class="dashboard-nav-inner">
-
-			<ul data-submenu-title="Principal">
-				<li class="active"><a href="admin"><i class="sl sl-icon-settings"></i> Dashboard</a></li>
-				<li><a href="/admin-usuarios"><i class="sl sl-icon-user"></i> Usuarios</a></li>
-				<li><a href="/admin-estados"><i class="sl sl-icon-star"></i> Estados</a></li>
-				<li><a href="/admin-cat"><i class="sl sl-icon-star"></i> Categorías</a></li>
-				<li><a href="/admin-blog"><i class="fa fa-calendar-check-o"></i> Blog <span class="nav-tag messages">2</span></a></li>
-				<li><a href="/admin-testimonios"><i class="fa fa-calendar-check-o"></i> Testimonios</a></li>
-			</ul>
-			
-			<ul data-submenu-title="Brazos de Ayuda">
-				<li><a><i class="sl sl-icon-layers"></i> Mis Brazos de Ayuda</a>
-					<ul>
-						<li><a href="/admin-ayuda">Activos <span class="nav-tag green">10</span></a></li>
-						<li><a href="/admin-ayuda">Pendientes <span class="nav-tag yellow">1</span></a></li>
-						<li><a href="/admin-ayuda">Expirados <span class="nav-tag red">0</span></a></li>
-					</ul>	
-				</li>
-				<li><a href="/admin-beneficarios"><i class="sl sl-icon-plus"></i> Beneficiarios</a></li>
-			</ul>	
-
-			<ul data-submenu-title="Cuenta">
-				<li><a href="#"><i class="sl sl-icon-user"></i> Mi perfil</a></li>
-				<li><a href="/"><i class="sl sl-icon-power"></i> Salir</a></li>
-			</ul>
-			
-		</div>
-	</div>
-	<!-- Navigation / End -->
-
+	@include("admin.layouts.menu-admin")
 
 	<!-- Content
 	================================================== -->
@@ -124,13 +34,12 @@
 		<div id="titlebar">
 			<div class="row">
 				<div class="col-md-12">
-					<h2>Estados</h2>
+					<h2>Usuarios</h2>
 					<!-- Breadcrumbs -->
 					<nav id="breadcrumbs">
 						<ul>
-							<li><a href="#">Home</a></li>
-							<li><a href="#">Dashboard</a></li>
-							<li>Bookmarks</li>
+							<li><a href="#">Admin</a></li>
+							<li>Usuarios</li>
 						</ul>
 					</nav>
 				</div>
@@ -141,11 +50,6 @@
 			<!-- Listings -->
 			<div class="col-lg-12 col-md-12">
 				<div class="dashboard-list-box margin-top-0">
-
-					<!-- Booking Requests Filters  -->
-					<div class="booking-requests-filter">
-						<a href="{{ route('users.create') }}" class="button">Nuevo Usuario</a>
-					</div>
 
 					<h4>Listado de Usuarios</h4>
 					
@@ -165,19 +69,21 @@
 							<table id="table_id" class="display" style="width:100%">
 									<thead>
 										<tr>
-											<th>Id</th>
-											<th>Usuario</th>
-											<th></th>
-											<th></th>
+											<th>Nombre</th>
+											<th>Email</th>
+											<th>CURP</th>
+											<th>Tipo</th>
 										</tr>
 									</thead>
 									<tbody>
 										@foreach($users as $user)
 										<tr>
-											<td>{{$user->id}}</td>
 											<td>{{$user->name}}</td>
-											<td><a href="{{ route('users.edit',$user->id)}}" class="button gray"><i class="sl sl-icon-note"></i> Edit</a></td>
-											<td><a href="{{ route('users.show',$user->id)}}" class="button gray"><i class="sl sl-icon-close"></i> Delete</a></td>
+											<td>{{$user->email}}</td>
+											<td>{{$user->curp}}</td>
+											<td>{{$user->type}}</td>
+											<!-- <td><a href="#" class="button gray"><i class="sl sl-icon-note"></i> Edit</a></td> -->
+											<!-- <td><a href="#" class="button gray"><i class="sl sl-icon-close"></i> Delete</a></td> -->
 										</tr>
 										@endforeach
 									</tbody>
@@ -192,7 +98,7 @@
 
 			<!-- Copyrights -->
 			<div class="col-md-12">
-				<div class="copyrights">© 2019 Listeo. All Rights Reserved.</div>
+				<div class="copyrights">© 2021 Cuxeya. Propiedad de Bull & Bear Foundation.</div>
 			</div>
 		</div>
 		
