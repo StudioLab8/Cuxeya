@@ -335,7 +335,7 @@
 
 		<!-- Map -->
 		<div id="map-container">
-		    <div id="map" data-map-scroll="true">
+		    <div id="mapa" data-map-scroll="true">
 		        <!-- map goes here -->
 		    </div>
 		</div>
@@ -376,5 +376,21 @@
 <script src="scripts\leaflet-autocomplete.js"></script>
 <script src="scripts\leaflet-control-geocoder.js"></script>
 
+
+<style>
+	#mapa{position: absolute; top: 0; bottom: 0; left: 0; right: 0;}
+</style>
+<script>
+	var map = L.map('mapa').setView([19.601022, -99.047949], 16);
+	
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+
+L.marker([19.601022, -99.047949]).addTo(map)
+  .bindPopup('Bull & Bear Foundation.')
+  .openPopup();
+
+</script>
 
 </body>
